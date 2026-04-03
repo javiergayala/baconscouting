@@ -73,3 +73,52 @@ button[disabled]{opacity:.5;cursor:not-allowed}
   .hero{grid-template-columns:96px 1fr;gap:14px;padding:16px}
   .hero img{width:96px;height:96px}
 }
+
+
+.share-actions{
+  align-items:stretch;
+}
+.preferred-share{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  font-weight:800;
+  box-shadow:0 12px 28px rgba(238,76,35,.28);
+  border:2px solid rgba(255,255,255,.55);
+  background:linear-gradient(135deg,var(--orange),#f56c2d 55%, var(--green-dark));
+}
+.preferred-share:hover,
+.preferred-share:focus-visible{
+  transform:translateY(-1px);
+  box-shadow:0 16px 32px rgba(238,76,35,.34);
+}
+.preferred-share .btn-icon{
+  display:inline-flex;
+  width:1.15rem;
+  height:1.15rem;
+  flex:0 0 1.15rem;
+}
+.preferred-share .btn-icon svg{
+  width:100%;
+  height:100%;
+  fill:currentColor;
+}
+.preferred-share .btn-badge{
+  display:inline-flex;
+  align-items:center;
+  padding:.18rem .5rem;
+  border-radius:999px;
+  font-size:.72rem;
+  line-height:1;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:var(--orange);
+  background:rgba(255,255,255,.92);
+}
+@media (max-width: 640px){
+  .preferred-share{
+    width:100%;
+  }
+}

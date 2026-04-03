@@ -167,9 +167,15 @@
 
     <section class="card">
       <h2 class="section-title">Saved submissions</h2>
-      <div class="actions">
+      <div class="actions share-actions">
+        <button id="shareCsvBtn" class="primary preferred-share" type="button" aria-label="Share CSV, preferred option">
+          <span class="btn-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="M21.8 2.2a1 1 0 0 0-1.04-.24L2.76 8.52a1 1 0 0 0 .08 1.9l7.1 2.37 2.37 7.1a1 1 0 0 0 .9.68h.06a1 1 0 0 0 .9-.58l7.87-16.74a1 1 0 0 0-.24-1.05ZM10.72 11.86 5.99 10.29l11.84-4.27-7.11 5.84Zm2.42 7.26-1.58-4.73 5.84-7.11-4.26 11.84Z"/></svg>
+          </span>
+          <span>Share CSV</span>
+          <span class="btn-badge">Preferred</span>
+        </button>
         <button id="exportCsvBtn" class="secondary" type="button">Export CSV</button>
-        <button id="shareCsvBtn" class="secondary" type="button">Share CSV</button>
         <button id="exportJsonBtn" class="secondary" type="button">Export JSON</button>
         <button id="emailBtn" class="secondary" type="button">Draft email</button>
         <button id="clearBtn" class="danger" type="button">Delete all saved data</button>
