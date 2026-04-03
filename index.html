@@ -673,6 +673,7 @@
     function validateForm() {
       const data = normalizeFormData();
       const requiredFields = { ...data };
+      delete requiredFields.notes;
       if (requiredFields.drivetrain !== 'Other') {
         delete requiredFields.drivetrainOther;
       }
