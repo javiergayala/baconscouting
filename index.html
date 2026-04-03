@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>Pit Scouting Input Form Orlando — Offline App</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #cbd5e1;
+      --accent: #2563eb;
+      --accent-2: #1d4ed8;
+      --success: #166534;
+      --warn: #92400e;
+      --danger: #b91c1c;
+      --chip: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+    }
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+    .hero, .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+    }
+    .hero { padding: 20px; margin-bottom: 16px; }
+    .card { padding: 18px; margin-bottom: 16px; }
+    h1, h2, h3 { margin: 0 0 10px; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.1rem; }
+    p { margin: 0 0 10px; color: var(--muted); }
+    .statusbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 12px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: .95rem;
+      background: var(--chip);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .pill.online { background: #dcfce7; color: var(--success); border-color: #86efac; }
+    .pill.offline { background: #fef3c7; color: var(--warn); border-color: #fcd34d; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .field { grid-column: span 12; }
+    .field.half { grid-column: span 6; }
+    @media (max-width: 700px) {
+      .field.half { grid-column: span 12; }
+    }
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    input[type="text"], input[type="number"], textarea, select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      font-size: 1rem;
+    }
+    textarea { min-height: 120px; resize: vertical; }
+    .options {
+      display: grid;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+    }
+    .option input { transform: scale(1.2); }
+    .hint { font-size: .92rem; color: var(--muted); margin-top: 6px; }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    button {
+      appearance: none;
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: .98rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+    }
+    button.secondary {
+      background: #e2e8f0;
+      color: var(--text);
+    }
+    button.warn { background: #f59e0b; color: #111827; }
+    button.danger { background: var(--danger); }
+    button:disabled { opacity: .55; cursor: not-allowed; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .95rem;
+      overflow: hidden;
+    }
+    th, td {
+      border-top: 1px solid var(--border);
+      padding: 10px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { color: var(--muted); font-weight: 700; }
+    .small { font-size: .9rem; color: var(--muted); }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .empty { color: var(--muted); font-style: italic; }
+    .footer { text-align: center; color: var(--muted); font-size: .9rem; padding-bottom: 20px; }
+    code.inline { background: #e2e8f0; padding: 2px 6px; border-radius: 6px; }
+    .notice {
+      padding: 12px 14px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      color: #1e3a8a;
+      margin-top: 10px;
+    }
+    .steps { margin: 10px 0 0; padding-left: 22px; color: var(--text); }
+    .steps li { margin-bottom: 8px; }
+    details.install details { margin-top: 10px; }
+    .callout {
+      padding: 10px 12px;
+      background: #f8fafc;
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      margin-top: 10px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>Pit Scouting Input Form Orlando — Offline App</h1>
+      <p>This app mirrors the Google Form and saves submissions locally when you do not have connectivity. When you are back online, you can export the saved submissions as CSV or JSON and share them by email or import them into Google Sheets.</p>
+      <p class="small">Source form: <a href="https://docs.google.com/forms/d/e/1FAIpQLScIQ8xcGvd0TV2XRkuY1JSq5T1qE03inmege_OQSYX_I7dh2A/viewform" target="_blank" rel="noreferrer">Google Form</a>.</p>
+      <div class="statusbar">
+        <span id="connectivityPill" class="pill offline">Checking connectivity…</span>
+        <span id="pendingPill" class="pill">0 saved submissions</span>
+      </div>
+      <div class="notice">This app includes every visible field from the linked Google Form: Scout Name, Team, Drivetrain Type, Intake, Do they have auto?, Bumpers?, Climb in auto?, Need chute?, Teleop climb, Weight, How many fuel can they hold?, Feed from the neutral zone?, Can they play defense?, Fit under trench, and Notes.</div>
+    </section>
+
+
+
+    <section class="card install">
+      <h2>Install on Your Phone</h2>
+      <p>For the best offline experience, open this app in your phone browser while you still have connectivity, then add it to your Home Screen. After that, launch it from the Home Screen icon just like a normal app.</p>
+      <div id="installBanner" class="notice">Checking your device for the best install instructions…</div>
+
+      <details open>
+        <summary><strong>iPhone / iPad (Safari)</strong></summary>
+        <ol class="steps">
+          <li>Open this page in <strong>Safari</strong>.</li>
+          <li>Let the page fully load once while online.</li>
+          <li>Tap the <strong>Share</strong> button.</li>
+          <li>Scroll down and tap <strong>Add to Home Screen</strong>.</li>
+          <li>Tap <strong>Add</strong> in the top-right corner.</li>
+          <li>Open the app from your Home Screen for offline use.</li>
+        </ol>
+        <div class="callout">Tip: If you do not see <strong>Add to Home Screen</strong>, make sure you opened the site directly in Safari rather than inside another app’s built-in browser.</div>
+      </details>
+
+      <details>
+        <summary><strong>Android (Chrome or Edge)</strong></summary>
+        <ol class="steps">
+          <li>Open this page in <strong>Chrome</strong> or <strong>Edge</strong>.</li>
+          <li>Let the page fully load once while online.</li>
+          <li>Look for an <strong>Install app</strong>, <strong>Add to Home screen</strong>, or <strong>Install</strong> prompt.</li>
+          <li>If you do not see a prompt, tap the browser <strong>menu</strong> (usually the three dots).</li>
+          <li>Choose <strong>Install app</strong> or <strong>Add to Home screen</strong>.</li>
+          <li>Confirm the install, then launch it from your Home Screen or app drawer.</li>
+        </ol>
+      </details>
+
+      <details>
+        <summary><strong>Before you rely on it offline</strong></summary>
+        <ol class="steps">
+          <li>Open the installed app once while you still have connectivity.</li>
+          <li>Save a test submission.</li>
+          <li>Turn on Airplane Mode and reopen the app from the Home Screen.</li>
+          <li>Make sure the form still opens and you can save another test submission.</li>
+          <li>Export a CSV so you know the whole workflow works on your device.</li>
+        </ol>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2>Scouting Form</h2>
+      <form id="scoutingForm">
+        <div class="grid">
+          <div class="field half">
+            <label for="scoutName">Scout Name</label>
+            <input id="scoutName" name="scoutName" type="text" required />
+          </div>
+          <div class="field half">
+            <label for="team">Team</label>
+            <input id="team" name="team" type="text" required />
+          </div>
+
+          <div class="field">
+            <label>Drivetrain Type</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="drivetrainType" value="Swerve" required /> Swerve</label>
+              <label class="option"><input type="radio" name="drivetrainType" value="Tank" /> Tank</label>
+              <label class="option"><input type="radio" name="drivetrainType" value="Omni" /> Omni</label>
+              <label class="option"><input type="radio" name="drivetrainType" value="Mecanum" /> Mecanum</label>
+              <label class="option"><input type="radio" name="drivetrainType" value="Other" /> Other</label>
+            </div>
+            <div class="hint">If you choose Other, add the description below.</div>
+            <input id="drivetrainOther" name="drivetrainOther" type="text" placeholder="Other drivetrain description" />
+          </div>
+
+          <div class="field">
+            <label>Intake</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="intake" value="Floor" required /> Floor</label>
+              <label class="option"><input type="radio" name="intake" value="Chute" /> Chute</label>
+              <label class="option"><input type="radio" name="intake" value="Both" /> Both</label>
+            </div>
+          </div>
+
+          <div class="field half">
+            <label>Do they have auto?</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="hasAuto" value="Yes" required /> Yes</label>
+              <label class="option"><input type="radio" name="hasAuto" value="No" /> No</label>
+            </div>
+          </div>
+
+          <div class="field half">
+            <label>Bumpers?</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="bumpers" value="Bad" required /> Bad</label>
+              <label class="option"><input type="radio" name="bumpers" value="Average" /> Average</label>
+              <label class="option"><input type="radio" name="bumpers" value="Good" /> Good</label>
+            </div>
+          </div>
+
+          <div class="field half">
+            <label>Climb in auto?</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="climbInAuto" value="Yes" required /> Yes</label>
+              <label class="option"><input type="radio" name="climbInAuto" value="No" /> No</label>
+            </div>
+          </div>
+
+          <div class="field half">
+            <label>Need chute?</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="needChute" value="Yes" required /> Yes</label>
+              <label class="option"><input type="radio" name="needChute" value="Auto" /> Auto</label>
+              <label class="option"><input type="radio" name="needChute" value="No" /> No</label>
+            </div>
+          </div>
+
+          <div class="field half">
+            <label>Teleop climb</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="teleopClimb" value="No climb" required /> No climb</label>
+              <label class="option"><input type="radio" name="teleopClimb" value="1" /> 1</label>
+              <label class="option"><input type="radio" name="teleopClimb" value="2" /> 2</label>
+              <label class="option"><input type="radio" name="teleopClimb" value="3" /> 3</label>
+            </div>
+          </div>
+
+          <div class="field half">
+            <label for="weight">Weight</label>
+            <input id="weight" name="weight" type="text" />
+          </div>
+
+          <div class="field half">
+            <label for="fuelHold">How many fuel can they hold?</label>
+            <input id="fuelHold" name="fuelHold" type="text" />
+          </div>
+
+          <div class="field half">
+            <label>Feed from the neutral zone?</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="feedNeutralZone" value="Yes" required /> Yes</label>
+              <label class="option"><input type="radio" name="feedNeutralZone" value="No" /> No</label>
+            </div>
+          </div>
+
+          <div class="field half">
+            <label>Can they play defense?</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="playDefense" value="Yes" required /> Yes</label>
+              <label class="option"><input type="radio" name="playDefense" value="No" /> No</label>
+            </div>
+          </div>
+
+          <div class="field half">
+            <label>Fit under trench</label>
+            <div class="options">
+              <label class="option"><input type="radio" name="fitUnderTrench" value="Yes" required /> Yes</label>
+              <label class="option"><input type="radio" name="fitUnderTrench" value="No" /> No</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="notes">Notes</label>
+            <textarea id="notes" name="notes"></textarea>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit">Save Submission</button>
+          <button type="button" class="secondary" id="resetFormBtn">Clear Form</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Saved Submissions</h2>
+      <p>These records stay on your device until you export or clear them.</p>
+      <div class="actions">
+        <button type="button" class="secondary" id="exportCsvBtn">Export Pending as CSV</button>
+        <button type="button" class="secondary" id="shareCsvBtn">Share CSV</button>
+        <button type="button" class="secondary" id="exportJsonBtn">Export Pending as JSON</button>
+        <button type="button" class="warn" id="emailHelpBtn">Prepare Email Draft</button>
+        <button type="button" class="danger" id="clearAllBtn">Clear All Saved</button>
+      </div>
+      <div class="meta">
+        <span class="pill" id="lastExportPill">No export yet</span>
+      </div>
+      <div id="savedTableWrap" style="margin-top: 14px;"></div>
+    </section>
+
+    <div class="footer">
+      Built for offline scouting. Installable as a PWA on supported browsers.
+    </div>
+  </div>
+
+  <script>
+    const DB_NAME = 'pit-scouting-offline-db';
+    const STORE_NAME = 'submissions';
+    const DB_VERSION = 1;
+    const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScIQ8xcGvd0TV2XRkuY1JSq5T1qE03inmege_OQSYX_I7dh2A/viewform';
+
+    function openDb() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
+        request.onupgradeneeded = () => {
+          const db = request.result;
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            const store = db.createObjectStore(STORE_NAME, { keyPath: 'id' });
+            store.createIndex('createdAt', 'createdAt');
+            store.createIndex('status', 'status');
+          }
+        };
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+      });
+    }
+
+    async function withStore(mode, handler) {
+      const db = await openDb();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, mode);
+        const store = tx.objectStore(STORE_NAME);
+        let result;
+        try {
+          result = handler(store, tx);
+        } catch (err) {
+          reject(err);
+          return;
+        }
+        tx.oncomplete = () => resolve(result);
+        tx.onerror = () => reject(tx.error);
+      });
+    }
+
+    function uuid() {
+      return (crypto && crypto.randomUUID) ? crypto.randomUUID() : 'id-' + Date.now() + '-' + Math.random().toString(16).slice(2);
+    }
+
+    async function saveSubmission(data) {
+      const record = {
+        id: uuid(),
+        createdAt: new Date().toISOString(),
+        status: 'pending',
+        sourceFormUrl: FORM_URL,
+        ...data,
+      };
+      await withStore('readwrite', (store) => store.put(record));
+      return record;
+    }
+
+    async function getAllSubmissions() {
+      const db = await openDb();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readonly');
+        const store = tx.objectStore(STORE_NAME);
+        const req = store.getAll();
+        req.onsuccess = () => {
+          const rows = req.result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+          resolve(rows);
+        };
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    async function clearAllSubmissions() {
+      await withStore('readwrite', (store) => store.clear());
+    }
+
+    function selectedValue(form, name) {
+      const item = form.querySelector(`input[name="${name}"]:checked`);
+      return item ? item.value : '';
+    }
+
+    function formToPayload(form) {
+      return {
+        scoutName: form.scoutName.value.trim(),
+        team: form.team.value.trim(),
+        drivetrainType: selectedValue(form, 'drivetrainType'),
+        drivetrainOther: form.drivetrainOther.value.trim(),
+        intake: selectedValue(form, 'intake'),
+        hasAuto: selectedValue(form, 'hasAuto'),
+        bumpers: selectedValue(form, 'bumpers'),
+        climbInAuto: selectedValue(form, 'climbInAuto'),
+        needChute: selectedValue(form, 'needChute'),
+        teleopClimb: selectedValue(form, 'teleopClimb'),
+        weight: form.weight.value.trim(),
+        fuelHold: form.fuelHold.value.trim(),
+        feedNeutralZone: selectedValue(form, 'feedNeutralZone'),
+        playDefense: selectedValue(form, 'playDefense'),
+        fitUnderTrench: selectedValue(form, 'fitUnderTrench'),
+        notes: form.notes.value.trim(),
+      };
+    }
+
+    function updateConnectivity() {
+      const pill = document.getElementById('connectivityPill');
+      if (navigator.onLine) {
+        pill.textContent = 'Online';
+        pill.className = 'pill online';
+      } else {
+        pill.textContent = 'Offline — saving locally';
+        pill.className = 'pill offline';
+      }
+    }
+
+    function escapeCsvValue(value) {
+      const str = String(value ?? '');
+      if (/[",\n]/.test(str)) return '"' + str.replace(/"/g, '""') + '"';
+      return str;
+    }
+
+    function recordsToCsv(records) {
+      const headers = [
+        'id', 'createdAt', 'status', 'scoutName', 'team', 'drivetrainType', 'drivetrainOther', 'intake',
+        'hasAuto', 'bumpers', 'climbInAuto', 'needChute', 'teleopClimb', 'weight', 'fuelHold',
+        'feedNeutralZone', 'playDefense', 'fitUnderTrench', 'notes', 'sourceFormUrl'
+      ];
+      const lines = [headers.join(',')];
+      for (const record of records) {
+        lines.push(headers.map((key) => escapeCsvValue(record[key])).join(','));
+      }
+      return lines.join('\n');
+    }
+
+    function downloadBlob(filename, blob) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    function dateStamp() {
+      const now = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      return `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}`;
+    }
+
+    async function exportCsv(records) {
+      const csv = recordsToCsv(records);
+      const fileName = `pit-scouting-submissions_${dateStamp()}.csv`;
+      downloadBlob(fileName, new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+      document.getElementById('lastExportPill').textContent = `Last export: ${new Date().toLocaleString()}`;
+    }
+
+    async function exportJson(records) {
+      const fileName = `pit-scouting-submissions_${dateStamp()}.json`;
+      downloadBlob(fileName, new Blob([JSON.stringify(records, null, 2)], { type: 'application/json' }));
+      document.getElementById('lastExportPill').textContent = `Last export: ${new Date().toLocaleString()}`;
+    }
+
+    async function shareCsv(records) {
+      const csv = recordsToCsv(records);
+      const file = new File([csv], `pit-scouting-submissions_${dateStamp()}.csv`, { type: 'text/csv' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          title: 'Pit scouting submissions',
+          text: 'Offline pit scouting export for Google Sheets import.',
+          files: [file]
+        });
+        document.getElementById('lastExportPill').textContent = `Last share: ${new Date().toLocaleString()}`;
+      } else {
+        await exportCsv(records);
+        alert('File sharing is not available in this browser, so the CSV was downloaded instead.');
+      }
+    }
+
+    function renderTable(records) {
+      const wrap = document.getElementById('savedTableWrap');
+      document.getElementById('pendingPill').textContent = `${records.length} saved submission${records.length === 1 ? '' : 's'}`;
+      if (!records.length) {
+        wrap.innerHTML = '<p class="empty">No saved submissions yet.</p>';
+        return;
+      }
+      const rows = records.map((r) => `
+        <tr>
+          <td>${new Date(r.createdAt).toLocaleString()}</td>
+          <td>${escapeHtml(r.scoutName)}</td>
+          <td>${escapeHtml(r.team)}</td>
+          <td>${escapeHtml(r.drivetrainType === 'Other' && r.drivetrainOther ? `Other: ${r.drivetrainOther}` : r.drivetrainType)}</td>
+          <td>${escapeHtml(r.intake)}</td>
+          <td>${escapeHtml(r.teleopClimb)}</td>
+          <td>${escapeHtml(r.notes || '')}</td>
+        </tr>
+      `).join('');
+      wrap.innerHTML = `
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Saved</th>
+                <th>Scout</th>
+                <th>Team</th>
+                <th>Drivetrain</th>
+                <th>Intake</th>
+                <th>Teleop climb</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+
+    function isiOS() {
+      return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    }
+
+    function isAndroid() {
+      return /Android/.test(navigator.userAgent);
+    }
+
+    function isStandalone() {
+      return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    }
+
+    function updateInstallBanner() {
+      const banner = document.getElementById('installBanner');
+      if (!banner) return;
+      if (isStandalone()) {
+        banner.textContent = 'This app is already running from your Home Screen or as an installed app.';
+        return;
+      }
+      if (isiOS()) {
+        banner.innerHTML = 'On iPhone or iPad, open this page in <strong>Safari</strong>, tap <strong>Share</strong>, then choose <strong>Add to Home Screen</strong>.';
+        return;
+      }
+      if (isAndroid()) {
+        banner.innerHTML = 'On Android, open this page in <strong>Chrome</strong> or <strong>Edge</strong>, then use <strong>Install app</strong> or <strong>Add to Home screen</strong> from the browser prompt or menu.';
+        return;
+      }
+      banner.textContent = 'Open this page in your mobile browser and use its install or Add to Home Screen option for the best offline experience.';
+    }
+
+    async function refreshUi() {
+      updateConnectivity();
+      const records = await getAllSubmissions();
+      renderTable(records);
+      return records;
+    }
+
+    async function init() {
+      const form = document.getElementById('scoutingForm');
+      const resetFormBtn = document.getElementById('resetFormBtn');
+      const exportCsvBtn = document.getElementById('exportCsvBtn');
+      const exportJsonBtn = document.getElementById('exportJsonBtn');
+      const shareCsvBtn = document.getElementById('shareCsvBtn');
+      const emailHelpBtn = document.getElementById('emailHelpBtn');
+      const clearAllBtn = document.getElementById('clearAllBtn');
+
+      window.addEventListener('online', refreshUi);
+      window.addEventListener('offline', refreshUi);
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const payload = formToPayload(form);
+        if (payload.drivetrainType === 'Other' && !payload.drivetrainOther) {
+          alert('Please fill in the Other drivetrain description.');
+          return;
+        }
+        await saveSubmission(payload);
+        form.reset();
+        await refreshUi();
+        alert(navigator.onLine ? 'Submission saved locally. You can export it now or later.' : 'Offline: submission saved locally on this device.');
+      });
+
+      resetFormBtn.addEventListener('click', () => form.reset());
+
+      exportCsvBtn.addEventListener('click', async () => {
+        const records = await getAllSubmissions();
+        if (!records.length) return alert('There are no saved submissions to export.');
+        await exportCsv(records);
+      });
+
+      exportJsonBtn.addEventListener('click', async () => {
+        const records = await getAllSubmissions();
+        if (!records.length) return alert('There are no saved submissions to export.');
+        await exportJson(records);
+      });
+
+      shareCsvBtn.addEventListener('click', async () => {
+        const records = await getAllSubmissions();
+        if (!records.length) return alert('There are no saved submissions to share.');
+        try {
+          await shareCsv(records);
+        } catch (err) {
+          console.error(err);
+          alert('Unable to share the CSV directly in this browser.');
+        }
+      });
+
+      emailHelpBtn.addEventListener('click', async () => {
+        const records = await getAllSubmissions();
+        if (!records.length) return alert('There are no saved submissions to email.');
+        const subject = encodeURIComponent('Pit scouting submissions export');
+        const body = encodeURIComponent('I exported the offline pit scouting submissions from the app. Please attach the downloaded or shared CSV file to this email before sending.');
+        window.location.href = `mailto:?subject=${subject}&body=${body}`;
+      });
+
+      clearAllBtn.addEventListener('click', async () => {
+        const records = await getAllSubmissions();
+        if (!records.length) return;
+        if (!confirm(`Delete all ${records.length} saved submission${records.length === 1 ? '' : 's'} from this device?`)) return;
+        await clearAllSubmissions();
+        await refreshUi();
+      });
+
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service-worker.js').catch((err) => console.error('Service worker registration failed', err));
+      }
+
+      updateInstallBanner();
+      await refreshUi();
+    }
+
+    init();
+  </script>
+</body>
+</html>
