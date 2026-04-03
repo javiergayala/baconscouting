@@ -64,3 +64,12 @@ https://docs.google.com/forms/d/e/1FAIpQLScIQ8xcGvd0TV2XRkuY1JSq5T1qE03inmege_OQ
 4. Open the Home Screen version of the app
 5. Save another test submission
 6. Export CSV to confirm your backup workflow works
+
+
+## Update behavior
+
+The service worker now uses a network-first strategy for the app shell (`index.html`, JavaScript, CSS, and manifest).
+
+- **When online:** it checks the network first and refreshes the cached app files with the newest version it can reach.
+- **When offline or unreachable:** it falls back to the cached version so the app still opens and works.
+- The app also asks the browser to check for updates on load, when connectivity returns, when the tab becomes visible again, and once a minute while open.
