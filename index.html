@@ -1,397 +1,581 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0f172a" />
-  <title>Pit Scouting Input Form Orlando — Offline App</title>
-  <link rel="manifest" href="manifest.webmanifest" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#EE4C23">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Exploding Bacon Scout">
+  <title>Exploding Bacon Pit Scouting</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600;700;800&family=Teko:wght@600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --text: #0f172a;
-      --muted: #475569;
-      --border: #cbd5e1;
-      --accent: #2563eb;
-      --accent-2: #1d4ed8;
-      --success: #166534;
-      --warn: #92400e;
-      --danger: #b91c1c;
-      --chip: #e2e8f0;
+      --bg: #fff6f1;
+      --bg-accent: #ffe9df;
+      --panel: #ffffff;
+      --panel-soft: #fffaf6;
+      --border: rgba(13, 150, 71, .14);
+      --border-strong: rgba(238, 76, 35, .32);
+      --text: #142018;
+      --muted: #4c5f53;
+      --orange: #EE4C23;
+      --orange-deep: #c83d18;
+      --green: #50B04D;
+      --green-deep: #0D9647;
+      --pink: #FACBCC;
+      --shadow: 0 14px 34px rgba(124, 49, 14, .12);
+      --radius: 18px;
     }
     * { box-sizing: border-box; }
-    body {
+    html, body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg);
+      min-height: 100%;
+      background:
+        radial-gradient(circle at top right, rgba(238, 76, 35, .16), transparent 26%),
+        radial-gradient(circle at top left, rgba(80, 176, 77, .12), transparent 22%),
+        linear-gradient(180deg, var(--bg-accent), var(--bg));
       color: var(--text);
-      line-height: 1.45;
+      font: 16px/1.42 "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
-    .wrap {
-      max-width: 860px;
+    body {
+      padding: max(10px, env(safe-area-inset-top)) 10px max(18px, env(safe-area-inset-bottom)) 10px;
+    }
+    .app {
+      max-width: 880px;
       margin: 0 auto;
-      padding: 16px;
+      display: grid;
+      gap: 12px;
     }
-    .hero, .card {
-      background: var(--card);
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,250,246,.98));
       border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
     }
-    .hero { padding: 20px; margin-bottom: 16px; }
-    .card { padding: 18px; margin-bottom: 16px; }
-    h1, h2, h3 { margin: 0 0 10px; }
-    h1 { font-size: 1.5rem; }
-    h2 { font-size: 1.1rem; }
-    p { margin: 0 0 10px; color: var(--muted); }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--orange), var(--green), var(--orange));
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 84px 1fr;
+      gap: 12px;
+      padding: 14px;
+      align-items: center;
+    }
+    .hero img {
+      width: 84px;
+      height: 84px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 10px 24px rgba(122, 52, 12, .16);
+      background: #fff;
+      border: 2px solid rgba(238, 76, 35, .16);
+    }
+    .hero h1 {
+      margin: 0 0 4px;
+      font-family: "Open Sans", system-ui, sans-serif;
+      font-size: clamp(1.28rem, 3.4vw, 2rem);
+      line-height: 1.06;
+      font-weight: 800;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      color: var(--orange-deep);
+    }
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .94rem;
+    }
     .statusbar {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
+      padding: 0 14px 14px;
       align-items: center;
-      margin-top: 12px;
     }
     .pill {
       display: inline-flex;
-      align-items: center;
       gap: 8px;
-      padding: 8px 12px;
+      align-items: center;
       border-radius: 999px;
+      padding: 7px 11px;
+      background: #fff;
+      border: 1px solid rgba(13, 150, 71, .12);
+      color: var(--muted);
+      font-size: .88rem;
+      min-height: 36px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--orange);
+      box-shadow: 0 0 0 4px rgba(238, 76, 35, .14);
+    }
+    .online .dot {
+      background: var(--green);
+      box-shadow: 0 0 0 4px rgba(80, 176, 77, .14);
+    }
+    .section-title {
+      padding: 14px 14px 0;
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--green-deep);
+    }
+    details.install {
+      margin: 0 14px 14px;
+      border: 1px solid rgba(238, 76, 35, .18);
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(250,203,204,.18), rgba(255,255,255,.86));
+    }
+    details.install summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 12px 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--orange-deep);
+    }
+    details.install summary::-webkit-details-marker { display: none; }
+    details.install summary::after {
+      content: "▾";
+      transition: transform .2s ease;
+      color: var(--green-deep);
+      font-size: 1.05rem;
+    }
+    details.install[open] summary::after { transform: rotate(180deg); }
+    .install-content {
+      padding: 0 14px 14px;
+      color: var(--muted);
+      font-size: .93rem;
+    }
+    .install-content h3 {
+      margin: 12px 0 6px;
+      color: var(--green-deep);
       font-size: .95rem;
-      background: var(--chip);
-      color: var(--text);
-      border: 1px solid var(--border);
+      font-weight: 700;
     }
-    .pill.online { background: #dcfce7; color: var(--success); border-color: #86efac; }
-    .pill.offline { background: #fef3c7; color: var(--warn); border-color: #fcd34d; }
-    .grid {
+    .install-content ol, .install-content ul { margin: 8px 0 0 18px; padding: 0; }
+    .install-content li { margin: 5px 0; }
+    .form-grid {
       display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
+      gap: 12px;
+      padding: 14px;
     }
-    .field { grid-column: span 12; }
-    .field.half { grid-column: span 6; }
-    @media (max-width: 700px) {
-      .field.half { grid-column: span 12; }
-    }
-    label {
+    label, legend {
       display: block;
       font-weight: 700;
-      margin-bottom: 6px;
+      margin-bottom: 7px;
+      color: var(--text);
+      font-size: .94rem;
     }
+    .field-note { color: var(--muted); font-size: .84rem; margin-top: 6px; }
     input[type="text"], input[type="number"], textarea, select {
       width: 100%;
-      padding: 12px 14px;
-      border: 1px solid var(--border);
+      appearance: none;
+      border: 1px solid rgba(13, 150, 71, .18);
       border-radius: 12px;
       background: #fff;
-      font-size: 1rem;
+      color: var(--text);
+      padding: 12px 13px;
+      font-size: 16px;
+      outline: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
     }
-    textarea { min-height: 120px; resize: vertical; }
-    .options {
+    textarea { min-height: 92px; resize: vertical; }
+    input:focus, textarea:focus, select:focus {
+      border-color: rgba(238, 76, 35, .72);
+      box-shadow: 0 0 0 4px rgba(238, 76, 35, .12);
+    }
+    fieldset {
+      margin: 0;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(13, 150, 71, .16);
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,250,246,.9));
+      min-width: 0;
+    }
+    .choices {
       display: grid;
-      gap: 10px;
-      margin-top: 8px;
+      gap: 8px;
     }
-    .option {
+    .choice {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 12px 14px;
-      border: 1px solid var(--border);
+      gap: 9px;
+      padding: 9px 11px;
       border-radius: 12px;
-      background: #fff;
+      background: var(--panel-soft);
+      border: 1px solid rgba(13, 150, 71, .08);
+      min-height: 44px;
     }
-    .option input { transform: scale(1.2); }
-    .hint { font-size: .92rem; color: var(--muted); margin-top: 6px; }
+    .choice:has(input:checked) {
+      border-color: rgba(80, 176, 77, .68);
+      background: rgba(80, 176, 77, .12);
+      box-shadow: inset 0 0 0 1px rgba(80, 176, 77, .14);
+    }
+    .choice input {
+      accent-color: var(--orange);
+      transform: scale(1.08);
+      flex: 0 0 auto;
+    }
+    .other-wrap { display:none; margin-top: 10px; }
     .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 9px;
+      padding: 0 14px 14px;
     }
-    button {
+    .form-actions {
+      position: sticky;
+      bottom: 0;
+      z-index: 10;
+      background: linear-gradient(180deg, rgba(255,246,241,0), rgba(255,246,241,.92) 22%, rgba(255,246,241,.98));
+      padding-top: 8px;
+      padding-bottom: calc(14px + env(safe-area-inset-bottom));
+      margin-top: -2px;
+    }
+    button, .button-link {
       appearance: none;
       border: 0;
       border-radius: 12px;
-      padding: 12px 16px;
-      font-size: .98rem;
-      font-weight: 700;
-      cursor: pointer;
-      background: var(--accent);
-      color: #fff;
-    }
-    button.secondary {
-      background: #e2e8f0;
-      color: var(--text);
-    }
-    button.warn { background: #f59e0b; color: #111827; }
-    button.danger { background: var(--danger); }
-    button:disabled { opacity: .55; cursor: not-allowed; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: .95rem;
-      overflow: hidden;
-    }
-    th, td {
-      border-top: 1px solid var(--border);
-      padding: 10px 8px;
-      text-align: left;
-      vertical-align: top;
-    }
-    th { color: var(--muted); font-weight: 700; }
-    .small { font-size: .9rem; color: var(--muted); }
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 8px;
-    }
-    .empty { color: var(--muted); font-style: italic; }
-    .footer { text-align: center; color: var(--muted); font-size: .9rem; padding-bottom: 20px; }
-    code.inline { background: #e2e8f0; padding: 2px 6px; border-radius: 6px; }
-    .notice {
       padding: 12px 14px;
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      border-radius: 12px;
-      color: #1e3a8a;
-      margin-top: 10px;
+      font-size: .96rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .04s ease, opacity .2s ease, filter .2s ease;
+      text-decoration: none;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      min-height: 48px;
+      font-family: "Open Sans", system-ui, sans-serif;
     }
-    .steps { margin: 10px 0 0; padding-left: 22px; color: var(--text); }
-    .steps li { margin-bottom: 8px; }
-    details.install details { margin-top: 10px; }
-    .callout {
-      padding: 10px 12px;
-      background: #f8fafc;
-      border: 1px dashed var(--border);
-      border-radius: 12px;
-      margin-top: 10px;
-      color: var(--muted);
+    button:active, .button-link:active { transform: translateY(1px); }
+    .primary {
+      background: linear-gradient(180deg, #f36a3a, var(--orange));
+      color: #fff;
+      box-shadow: 0 10px 20px rgba(238, 76, 35, .18);
     }
-  </style>
+    .secondary {
+      background: #fff;
+      color: var(--green-deep);
+      border: 1px solid rgba(13, 150, 71, .16);
+    }
+    .danger {
+      background: #fff1f1;
+      color: #9c2414;
+      border: 1px solid rgba(238, 76, 35, .22);
+    }
+    button[disabled] {
+      cursor: not-allowed;
+      filter: grayscale(.15);
+      opacity: .5;
+      box-shadow: none;
+    }
+    .message {
+      margin: 0 14px 14px;
+      padding: 11px 12px;
+      border-radius: 12px;
+      background: rgba(80, 176, 77, .12);
+      border: 1px solid rgba(80, 176, 77, .2);
+      color: var(--green-deep);
+      display: none;
+      font-size: .92rem;
+    }
+    .message.error {
+      background: rgba(250, 203, 204, .34);
+      border-color: rgba(238, 76, 35, .24);
+      color: #9c2414;
+    }
+    .saved-list {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+    }
+    .saved-item {
+      padding: 12px;
+      border-radius: 13px;
+      background: #fff;
+      border: 1px solid rgba(13, 150, 71, .12);
+    }
+    .saved-item h4 {
+      margin: 0 0 6px;
+      font-size: .96rem;
+      color: var(--orange-deep);
+    }
+    .saved-item p { margin: 4px 0; color: var(--muted); font-size: .9rem; }
+    .saved-empty { color: var(--muted); padding: 0 14px 14px; font-size: .92rem; }
+    .tiny { font-size: .84rem; color: var(--muted); }
+    @media (min-width: 700px) {
+      body { padding-left: 16px; padding-right: 16px; }
+      .app { gap: 14px; }
+      .hero { grid-template-columns: 100px 1fr; padding: 18px; gap: 16px; }
+      .hero img { width: 100px; height: 100px; }
+      .statusbar, .section-title, .form-grid, .actions, .saved-list, details.install, .message, .saved-empty { }
+      .statusbar { padding: 0 18px 18px; }
+      .section-title { padding: 18px 18px 0; }
+      details.install { margin: 0 18px 18px; }
+      .install-content { padding: 0 16px 16px; }
+      .form-grid { padding: 18px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .form-grid > fieldset,
+      .form-grid > div { min-width: 0; }
+      .form-grid > fieldset:nth-of-type(1),
+      .form-grid > div:last-child { grid-column: 1 / -1; }
+      .actions { padding: 0 18px 18px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .form-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .message { margin: 0 18px 18px; }
+      .saved-list { padding: 18px; }
+      .saved-empty { padding: 0 18px 18px; }
+    }
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <section class="hero">
-      <h1>Pit Scouting Input Form Orlando — Offline App</h1>
-      <p>This app mirrors the Google Form and saves submissions locally when you do not have connectivity. When you are back online, you can export the saved submissions as CSV or JSON and share them by email or import them into Google Sheets.</p>
-      <p class="small">Source form: <a href="https://docs.google.com/forms/d/e/1FAIpQLScIQ8xcGvd0TV2XRkuY1JSq5T1qE03inmege_OQSYX_I7dh2A/viewform" target="_blank" rel="noreferrer">Google Form</a>.</p>
-      <div class="statusbar">
-        <span id="connectivityPill" class="pill offline">Checking connectivity…</span>
-        <span id="pendingPill" class="pill">0 saved submissions</span>
+  <main class="app">
+    <section class="card">
+      <div class="hero">
+        <img src="icons/icon-192.png" alt="Exploding Bacon 1902 logo">
+        <div>
+          <h1>Exploding Bacon Pit Scouting</h1>
+          <p>Offline-ready scouting for Team 1902. Save locally, then export to CSV or JSON for Google Sheets.</p>
+        </div>
       </div>
-      <div class="notice">This app includes every visible field from the linked Google Form: Scout Name, Team, Drivetrain Type, Intake, Do they have auto?, Bumpers?, Climb in auto?, Need chute?, Teleop climb, Weight, How many fuel can they hold?, Feed from the neutral zone?, Can they play defense?, Fit under trench, and Notes.</div>
-    </section>
+      <div class="statusbar">
+        <div id="netBadge" class="pill"><span class="dot"></span><span id="netText">Checking connectivity…</span></div>
+        <div class="pill"><strong id="savedCount">0</strong>&nbsp;saved submissions</div>
+        <div class="pill"><span id="modeText">Browser mode</span></div>
+      </div>
+      <h2 class="section-title">Install on your phone</h2>
+      <details id="installDetails" class="install">
+        <summary>Home Screen install instructions</summary>
+        <div class="install-content">
+          <p id="installContext">Open this section for the right steps for your device.</p>
 
+          <h3>iPhone / iPad (Safari)</h3>
+          <ol>
+            <li>Open this site in <strong>Safari</strong>.</li>
+            <li>Tap the <strong>Share</strong> button.</li>
+            <li>Scroll and tap <strong>Add to Home Screen</strong>.</li>
+            <li>Tap <strong>Add</strong>.</li>
+            <li>Open the new Home Screen icon once while online, then test offline.</li>
+          </ol>
 
+          <h3>Android (Chrome / Edge)</h3>
+          <ol>
+            <li>Open this site in <strong>Chrome</strong> or <strong>Edge</strong>.</li>
+            <li>Tap the browser menu, then choose <strong>Install app</strong> or <strong>Add to Home screen</strong>.</li>
+            <li>Confirm the install.</li>
+            <li>Open the app from your launcher once while online, then test offline.</li>
+          </ol>
 
-    <section class="card install">
-      <h2>Install on Your Phone</h2>
-      <p>For the best offline experience, open this app in your phone browser while you still have connectivity, then add it to your Home Screen. After that, launch it from the Home Screen icon just like a normal app.</p>
-      <div id="installBanner" class="notice">Checking your device for the best install instructions…</div>
-
-      <details open>
-        <summary><strong>iPhone / iPad (Safari)</strong></summary>
-        <ol class="steps">
-          <li>Open this page in <strong>Safari</strong>.</li>
-          <li>Let the page fully load once while online.</li>
-          <li>Tap the <strong>Share</strong> button.</li>
-          <li>Scroll down and tap <strong>Add to Home Screen</strong>.</li>
-          <li>Tap <strong>Add</strong> in the top-right corner.</li>
-          <li>Open the app from your Home Screen for offline use.</li>
-        </ol>
-        <div class="callout">Tip: If you do not see <strong>Add to Home Screen</strong>, make sure you opened the site directly in Safari rather than inside another app’s built-in browser.</div>
-      </details>
-
-      <details>
-        <summary><strong>Android (Chrome or Edge)</strong></summary>
-        <ol class="steps">
-          <li>Open this page in <strong>Chrome</strong> or <strong>Edge</strong>.</li>
-          <li>Let the page fully load once while online.</li>
-          <li>Look for an <strong>Install app</strong>, <strong>Add to Home screen</strong>, or <strong>Install</strong> prompt.</li>
-          <li>If you do not see a prompt, tap the browser <strong>menu</strong> (usually the three dots).</li>
-          <li>Choose <strong>Install app</strong> or <strong>Add to Home screen</strong>.</li>
-          <li>Confirm the install, then launch it from your Home Screen or app drawer.</li>
-        </ol>
-      </details>
-
-      <details>
-        <summary><strong>Before you rely on it offline</strong></summary>
-        <ol class="steps">
-          <li>Open the installed app once while you still have connectivity.</li>
-          <li>Save a test submission.</li>
-          <li>Turn on Airplane Mode and reopen the app from the Home Screen.</li>
-          <li>Make sure the form still opens and you can save another test submission.</li>
-          <li>Export a CSV so you know the whole workflow works on your device.</li>
-        </ol>
+          <h3>Before the event</h3>
+          <ul>
+            <li>Open the app once with connectivity.</li>
+            <li>Create one test submission.</li>
+            <li>Turn on Airplane Mode.</li>
+            <li>Open the Home Screen app and save another test submission.</li>
+            <li>Export CSV to confirm your backup workflow works.</li>
+          </ul>
+        </div>
       </details>
     </section>
 
     <section class="card">
-      <h2>Scouting Form</h2>
-      <form id="scoutingForm">
-        <div class="grid">
-          <div class="field half">
+      <h2 class="section-title">Pit scouting form</h2>
+      <form id="scoutForm" novalidate>
+        <div class="form-grid">
+          <div>
             <label for="scoutName">Scout Name</label>
-            <input id="scoutName" name="scoutName" type="text" required />
+            <input id="scoutName" name="scoutName" type="text" autocomplete="name" required>
           </div>
-          <div class="field half">
+
+          <div>
             <label for="team">Team</label>
-            <input id="team" name="team" type="text" required />
+            <input id="team" name="team" type="text" inputmode="numeric" required>
           </div>
 
-          <div class="field">
-            <label>Drivetrain Type</label>
-            <div class="options">
-              <label class="option"><input type="radio" name="drivetrainType" value="Swerve" required /> Swerve</label>
-              <label class="option"><input type="radio" name="drivetrainType" value="Tank" /> Tank</label>
-              <label class="option"><input type="radio" name="drivetrainType" value="Omni" /> Omni</label>
-              <label class="option"><input type="radio" name="drivetrainType" value="Mecanum" /> Mecanum</label>
-              <label class="option"><input type="radio" name="drivetrainType" value="Other" /> Other</label>
+          <fieldset>
+            <legend>Drivetrain Type</legend>
+            <div class="choices" role="radiogroup" aria-label="Drivetrain Type">
+              <label class="choice"><input type="radio" name="drivetrain" value="Swerve" required> Swerve</label>
+              <label class="choice"><input type="radio" name="drivetrain" value="Tank"> Tank</label>
+              <label class="choice"><input type="radio" name="drivetrain" value="Omni"> Omni</label>
+              <label class="choice"><input type="radio" name="drivetrain" value="Mecanum"> Mecanum</label>
+              <label class="choice"><input type="radio" name="drivetrain" value="Other"> Other</label>
             </div>
-            <div class="hint">If you choose Other, add the description below.</div>
-            <input id="drivetrainOther" name="drivetrainOther" type="text" placeholder="Other drivetrain description" />
-          </div>
-
-          <div class="field">
-            <label>Intake</label>
-            <div class="options">
-              <label class="option"><input type="radio" name="intake" value="Floor" required /> Floor</label>
-              <label class="option"><input type="radio" name="intake" value="Chute" /> Chute</label>
-              <label class="option"><input type="radio" name="intake" value="Both" /> Both</label>
+            <div id="otherDriveWrap" class="other-wrap">
+              <label for="drivetrainOther">Other drivetrain</label>
+              <input id="drivetrainOther" name="drivetrainOther" type="text" placeholder="Describe the drivetrain">
             </div>
-          </div>
+          </fieldset>
 
-          <div class="field half">
-            <label>Do they have auto?</label>
-            <div class="options">
-              <label class="option"><input type="radio" name="hasAuto" value="Yes" required /> Yes</label>
-              <label class="option"><input type="radio" name="hasAuto" value="No" /> No</label>
+          <fieldset>
+            <legend>Intake</legend>
+            <div class="choices" role="radiogroup" aria-label="Intake">
+              <label class="choice"><input type="radio" name="intake" value="Floor" required> Floor</label>
+              <label class="choice"><input type="radio" name="intake" value="Chute"> Chute</label>
+              <label class="choice"><input type="radio" name="intake" value="Both"> Both</label>
             </div>
-          </div>
+          </fieldset>
 
-          <div class="field half">
-            <label>Bumpers?</label>
-            <div class="options">
-              <label class="option"><input type="radio" name="bumpers" value="Bad" required /> Bad</label>
-              <label class="option"><input type="radio" name="bumpers" value="Average" /> Average</label>
-              <label class="option"><input type="radio" name="bumpers" value="Good" /> Good</label>
+          <fieldset>
+            <legend>Do they have auto?</legend>
+            <div class="choices" role="radiogroup" aria-label="Do they have auto?">
+              <label class="choice"><input type="radio" name="auto" value="Yes" required> Yes</label>
+              <label class="choice"><input type="radio" name="auto" value="No"> No</label>
             </div>
-          </div>
+          </fieldset>
 
-          <div class="field half">
-            <label>Climb in auto?</label>
-            <div class="options">
-              <label class="option"><input type="radio" name="climbInAuto" value="Yes" required /> Yes</label>
-              <label class="option"><input type="radio" name="climbInAuto" value="No" /> No</label>
+          <fieldset>
+            <legend>Bumpers?</legend>
+            <div class="choices" role="radiogroup" aria-label="Bumpers?">
+              <label class="choice"><input type="radio" name="bumpers" value="Bad" required> Bad</label>
+              <label class="choice"><input type="radio" name="bumpers" value="Average"> Average</label>
+              <label class="choice"><input type="radio" name="bumpers" value="Good"> Good</label>
             </div>
-          </div>
+          </fieldset>
 
-          <div class="field half">
-            <label>Need chute?</label>
-            <div class="options">
-              <label class="option"><input type="radio" name="needChute" value="Yes" required /> Yes</label>
-              <label class="option"><input type="radio" name="needChute" value="Auto" /> Auto</label>
-              <label class="option"><input type="radio" name="needChute" value="No" /> No</label>
+          <fieldset>
+            <legend>Climb in auto?</legend>
+            <div class="choices" role="radiogroup" aria-label="Climb in auto?">
+              <label class="choice"><input type="radio" name="climbAuto" value="Yes" required> Yes</label>
+              <label class="choice"><input type="radio" name="climbAuto" value="No"> No</label>
             </div>
-          </div>
+          </fieldset>
 
-          <div class="field half">
-            <label>Teleop climb</label>
-            <div class="options">
-              <label class="option"><input type="radio" name="teleopClimb" value="No climb" required /> No climb</label>
-              <label class="option"><input type="radio" name="teleopClimb" value="1" /> 1</label>
-              <label class="option"><input type="radio" name="teleopClimb" value="2" /> 2</label>
-              <label class="option"><input type="radio" name="teleopClimb" value="3" /> 3</label>
+          <fieldset>
+            <legend>Need chute?</legend>
+            <div class="choices" role="radiogroup" aria-label="Need chute?">
+              <label class="choice"><input type="radio" name="needChute" value="Yes" required> Yes</label>
+              <label class="choice"><input type="radio" name="needChute" value="Auto"> Auto</label>
+              <label class="choice"><input type="radio" name="needChute" value="No"> No</label>
             </div>
-          </div>
+          </fieldset>
 
-          <div class="field half">
+          <fieldset>
+            <legend>Teleop climb</legend>
+            <div class="choices" role="radiogroup" aria-label="Teleop climb">
+              <label class="choice"><input type="radio" name="teleopClimb" value="No climb" required> No climb</label>
+              <label class="choice"><input type="radio" name="teleopClimb" value="1"> 1</label>
+              <label class="choice"><input type="radio" name="teleopClimb" value="2"> 2</label>
+              <label class="choice"><input type="radio" name="teleopClimb" value="3"> 3</label>
+            </div>
+          </fieldset>
+
+          <div>
             <label for="weight">Weight</label>
-            <input id="weight" name="weight" type="text" />
+            <input id="weight" name="weight" type="text" required>
           </div>
 
-          <div class="field half">
+          <div>
             <label for="fuelHold">How many fuel can they hold?</label>
-            <input id="fuelHold" name="fuelHold" type="text" />
+            <input id="fuelHold" name="fuelHold" type="text" required>
           </div>
 
-          <div class="field half">
-            <label>Feed from the neutral zone?</label>
-            <div class="options">
-              <label class="option"><input type="radio" name="feedNeutralZone" value="Yes" required /> Yes</label>
-              <label class="option"><input type="radio" name="feedNeutralZone" value="No" /> No</label>
+          <fieldset>
+            <legend>Feed from the neutral zone?</legend>
+            <div class="choices" role="radiogroup" aria-label="Feed from the neutral zone?">
+              <label class="choice"><input type="radio" name="neutralZone" value="Yes" required> Yes</label>
+              <label class="choice"><input type="radio" name="neutralZone" value="No"> No</label>
             </div>
-          </div>
+          </fieldset>
 
-          <div class="field half">
-            <label>Can they play defense?</label>
-            <div class="options">
-              <label class="option"><input type="radio" name="playDefense" value="Yes" required /> Yes</label>
-              <label class="option"><input type="radio" name="playDefense" value="No" /> No</label>
+          <fieldset>
+            <legend>Can they play defense?</legend>
+            <div class="choices" role="radiogroup" aria-label="Can they play defense?">
+              <label class="choice"><input type="radio" name="defense" value="Yes" required> Yes</label>
+              <label class="choice"><input type="radio" name="defense" value="No"> No</label>
             </div>
-          </div>
+          </fieldset>
 
-          <div class="field half">
-            <label>Fit under trench</label>
-            <div class="options">
-              <label class="option"><input type="radio" name="fitUnderTrench" value="Yes" required /> Yes</label>
-              <label class="option"><input type="radio" name="fitUnderTrench" value="No" /> No</label>
+          <fieldset>
+            <legend>Fit under trench</legend>
+            <div class="choices" role="radiogroup" aria-label="Fit under trench">
+              <label class="choice"><input type="radio" name="underTrench" value="Yes" required> Yes</label>
+              <label class="choice"><input type="radio" name="underTrench" value="No"> No</label>
             </div>
-          </div>
+          </fieldset>
 
-          <div class="field">
+          <div>
             <label for="notes">Notes</label>
-            <textarea id="notes" name="notes"></textarea>
+            <textarea id="notes" name="notes" required></textarea>
+            <div class="field-note">Every field must have a value before you can save.</div>
           </div>
         </div>
 
-        <div class="actions">
-          <button type="submit">Save Submission</button>
-          <button type="button" class="secondary" id="resetFormBtn">Clear Form</button>
+        <div class="actions form-actions">
+          <button id="saveBtn" class="primary" type="submit" disabled>Save submission</button>
+          <button id="resetBtn" class="secondary" type="button">Clear form</button>
         </div>
+        <div id="formMessage" class="message" role="status" aria-live="polite"></div>
       </form>
     </section>
 
     <section class="card">
-      <h2>Saved Submissions</h2>
-      <p>These records stay on your device until you export or clear them.</p>
+      <h2 class="section-title">Saved submissions</h2>
       <div class="actions">
-        <button type="button" class="secondary" id="exportCsvBtn">Export Pending as CSV</button>
-        <button type="button" class="secondary" id="shareCsvBtn">Share CSV</button>
-        <button type="button" class="secondary" id="exportJsonBtn">Export Pending as JSON</button>
-        <button type="button" class="warn" id="emailHelpBtn">Prepare Email Draft</button>
-        <button type="button" class="danger" id="clearAllBtn">Clear All Saved</button>
+        <button id="exportCsvBtn" class="secondary" type="button">Export CSV</button>
+        <button id="shareCsvBtn" class="secondary" type="button">Share CSV</button>
+        <button id="exportJsonBtn" class="secondary" type="button">Export JSON</button>
+        <button id="emailBtn" class="secondary" type="button">Draft email</button>
+        <button id="clearBtn" class="danger" type="button">Delete all saved data</button>
       </div>
-      <div class="meta">
-        <span class="pill" id="lastExportPill">No export yet</span>
-      </div>
-      <div id="savedTableWrap" style="margin-top: 14px;"></div>
+      <div id="savedList" class="saved-list"></div>
+      <p id="savedEmpty" class="saved-empty">No saved submissions yet.</p>
     </section>
-
-    <div class="footer">
-      Built for offline scouting. Installable as a PWA on supported browsers.
-    </div>
-  </div>
+  </main>
 
   <script>
-    const DB_NAME = 'pit-scouting-offline-db';
+    const DB_NAME = 'exploding-bacon-scouting';
     const STORE_NAME = 'submissions';
-    const DB_VERSION = 1;
-    const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScIQ8xcGvd0TV2XRkuY1JSq5T1qE03inmege_OQSYX_I7dh2A/viewform';
+
+    const FIELDS = [
+      'scoutName', 'team', 'drivetrain', 'drivetrainOther', 'intake', 'auto', 'bumpers',
+      'climbAuto', 'needChute', 'teleopClimb', 'weight', 'fuelHold', 'neutralZone',
+      'defense', 'underTrench', 'notes'
+    ];
+
+    const form = document.getElementById('scoutForm');
+    const saveBtn = document.getElementById('saveBtn');
+    const formMessage = document.getElementById('formMessage');
+    const savedCount = document.getElementById('savedCount');
+    const savedList = document.getElementById('savedList');
+    const savedEmpty = document.getElementById('savedEmpty');
+    const installDetails = document.getElementById('installDetails');
+    const installContext = document.getElementById('installContext');
+    const netBadge = document.getElementById('netBadge');
+    const netText = document.getElementById('netText');
+    const modeText = document.getElementById('modeText');
+    const otherDriveWrap = document.getElementById('otherDriveWrap');
+    const drivetrainOther = document.getElementById('drivetrainOther');
 
     function openDb() {
       return new Promise((resolve, reject) => {
-        const request = indexedDB.open(DB_NAME, DB_VERSION);
+        const request = indexedDB.open(DB_NAME, 1);
         request.onupgradeneeded = () => {
           const db = request.result;
           if (!db.objectStoreNames.contains(STORE_NAME)) {
-            const store = db.createObjectStore(STORE_NAME, { keyPath: 'id' });
-            store.createIndex('createdAt', 'createdAt');
-            store.createIndex('status', 'status');
+            db.createObjectStore(STORE_NAME, { keyPath: 'id' });
           }
         };
         request.onsuccess = () => resolve(request.result);
@@ -399,319 +583,304 @@
       });
     }
 
-    async function withStore(mode, handler) {
-      const db = await openDb();
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORE_NAME, mode);
-        const store = tx.objectStore(STORE_NAME);
-        let result;
-        try {
-          result = handler(store, tx);
-        } catch (err) {
-          reject(err);
-          return;
-        }
-        tx.oncomplete = () => resolve(result);
-        tx.onerror = () => reject(tx.error);
-      });
-    }
-
-    function uuid() {
-      return (crypto && crypto.randomUUID) ? crypto.randomUUID() : 'id-' + Date.now() + '-' + Math.random().toString(16).slice(2);
-    }
-
-    async function saveSubmission(data) {
-      const record = {
-        id: uuid(),
-        createdAt: new Date().toISOString(),
-        status: 'pending',
-        sourceFormUrl: FORM_URL,
-        ...data,
-      };
-      await withStore('readwrite', (store) => store.put(record));
-      return record;
-    }
-
     async function getAllSubmissions() {
       const db = await openDb();
       return new Promise((resolve, reject) => {
         const tx = db.transaction(STORE_NAME, 'readonly');
-        const store = tx.objectStore(STORE_NAME);
-        const req = store.getAll();
-        req.onsuccess = () => {
-          const rows = req.result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-          resolve(rows);
-        };
+        const req = tx.objectStore(STORE_NAME).getAll();
+        req.onsuccess = () => resolve((req.result || []).sort((a,b) => b.createdAt.localeCompare(a.createdAt)));
         req.onerror = () => reject(req.error);
       });
     }
 
-    async function clearAllSubmissions() {
-      await withStore('readwrite', (store) => store.clear());
+    async function putSubmission(record) {
+      const db = await openDb();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        tx.objectStore(STORE_NAME).put(record);
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+      });
     }
 
-    function selectedValue(form, name) {
-      const item = form.querySelector(`input[name="${name}"]:checked`);
-      return item ? item.value : '';
+    async function clearSubmissions() {
+      const db = await openDb();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        tx.objectStore(STORE_NAME).clear();
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+      });
     }
 
-    function formToPayload(form) {
-      return {
-        scoutName: form.scoutName.value.trim(),
-        team: form.team.value.trim(),
-        drivetrainType: selectedValue(form, 'drivetrainType'),
-        drivetrainOther: form.drivetrainOther.value.trim(),
-        intake: selectedValue(form, 'intake'),
-        hasAuto: selectedValue(form, 'hasAuto'),
-        bumpers: selectedValue(form, 'bumpers'),
-        climbInAuto: selectedValue(form, 'climbInAuto'),
-        needChute: selectedValue(form, 'needChute'),
-        teleopClimb: selectedValue(form, 'teleopClimb'),
-        weight: form.weight.value.trim(),
-        fuelHold: form.fuelHold.value.trim(),
-        feedNeutralZone: selectedValue(form, 'feedNeutralZone'),
-        playDefense: selectedValue(form, 'playDefense'),
-        fitUnderTrench: selectedValue(form, 'fitUnderTrench'),
-        notes: form.notes.value.trim(),
-      };
+    function isStandaloneMode() {
+      return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
     }
 
-    function updateConnectivity() {
-      const pill = document.getElementById('connectivityPill');
-      if (navigator.onLine) {
-        pill.textContent = 'Online';
-        pill.className = 'pill online';
+    function detectPlatform() {
+      const ua = navigator.userAgent || navigator.vendor || '';
+      if (/android/i.test(ua)) return 'android';
+      if (/iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) return 'ios';
+      return 'other';
+    }
+
+    function updateInstallPanel() {
+      const platform = detectPlatform();
+      const standalone = isStandaloneMode();
+      installDetails.open = !standalone;
+      if (standalone) {
+        installContext.textContent = 'You launched this from the Home Screen, so the install steps start collapsed by default.';
+        modeText.textContent = 'Home Screen app';
+      } else if (platform === 'ios') {
+        installContext.textContent = 'You are on iPhone/iPad. Use Safari, then Share → Add to Home Screen.';
+        modeText.textContent = 'Safari browser';
+      } else if (platform === 'android') {
+        installContext.textContent = 'You are on Android. Use Chrome or Edge, then Install app / Add to Home screen.';
+        modeText.textContent = 'Android browser';
       } else {
-        pill.textContent = 'Offline — saving locally';
-        pill.className = 'pill offline';
+        installContext.textContent = 'Open this on your phone to install it to the Home Screen.';
+        modeText.textContent = 'Browser mode';
       }
     }
 
-    function escapeCsvValue(value) {
-      const str = String(value ?? '');
-      if (/[",\n]/.test(str)) return '"' + str.replace(/"/g, '""') + '"';
-      return str;
+    function selectedValue(name) {
+      const checked = form.querySelector(`input[name="${name}"]:checked`);
+      return checked ? checked.value : '';
     }
 
-    function recordsToCsv(records) {
+    function normalizeFormData() {
+      const drivetrain = selectedValue('drivetrain');
+      return {
+        scoutName: document.getElementById('scoutName').value.trim(),
+        team: document.getElementById('team').value.trim(),
+        drivetrain,
+        drivetrainOther: drivetrain === 'Other' ? drivetrainOther.value.trim() : '',
+        intake: selectedValue('intake'),
+        auto: selectedValue('auto'),
+        bumpers: selectedValue('bumpers'),
+        climbAuto: selectedValue('climbAuto'),
+        needChute: selectedValue('needChute'),
+        teleopClimb: selectedValue('teleopClimb'),
+        weight: document.getElementById('weight').value.trim(),
+        fuelHold: document.getElementById('fuelHold').value.trim(),
+        neutralZone: selectedValue('neutralZone'),
+        defense: selectedValue('defense'),
+        underTrench: selectedValue('underTrench'),
+        notes: document.getElementById('notes').value.trim()
+      };
+    }
+
+    function validateForm() {
+      const data = normalizeFormData();
+      const requiredFields = { ...data };
+      if (requiredFields.drivetrain !== 'Other') {
+        delete requiredFields.drivetrainOther;
+      }
+      const complete = Object.values(requiredFields).every(value => String(value || '').trim() !== '');
+      saveBtn.disabled = !complete;
+      return complete;
+    }
+
+    function toggleOtherDrivetrain() {
+      const isOther = selectedValue('drivetrain') === 'Other';
+      otherDriveWrap.style.display = isOther ? 'block' : 'none';
+      drivetrainOther.required = isOther;
+      if (!isOther) drivetrainOther.value = '';
+      validateForm();
+    }
+
+    function showMessage(text, type = 'ok') {
+      formMessage.textContent = text;
+      formMessage.className = type === 'error' ? 'message error' : 'message';
+      formMessage.style.display = 'block';
+    }
+
+    function hideMessage() {
+      formMessage.style.display = 'none';
+    }
+
+    function updateConnectivity() {
+      const online = navigator.onLine;
+      netBadge.classList.toggle('online', online);
+      netText.textContent = online ? 'Connectivity detected' : 'Offline — saving locally only';
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>"]/g, char => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'
+      })[char]);
+    }
+
+    async function renderSubmissions() {
+      const items = await getAllSubmissions();
+      savedCount.textContent = items.length;
+      savedList.innerHTML = '';
+      savedEmpty.style.display = items.length ? 'none' : 'block';
+
+      for (const item of items) {
+        const card = document.createElement('article');
+        card.className = 'saved-item';
+        card.innerHTML = `
+          <h4>Team ${escapeHtml(item.team)} • ${escapeHtml(item.scoutName)}</h4>
+          <p><strong>Saved:</strong> ${new Date(item.createdAt).toLocaleString()}</p>
+          <p><strong>Drive:</strong> ${escapeHtml(item.drivetrain === 'Other' ? `${item.drivetrain} (${item.drivetrainOther})` : item.drivetrain)}</p>
+          <p><strong>Teleop climb:</strong> ${escapeHtml(item.teleopClimb)} • <strong>Defense:</strong> ${escapeHtml(item.defense)}</p>
+          <p class="tiny">${escapeHtml(item.notes)}</p>
+        `;
+        savedList.appendChild(card);
+      }
+    }
+
+    function toCsv(records) {
       const headers = [
-        'id', 'createdAt', 'status', 'scoutName', 'team', 'drivetrainType', 'drivetrainOther', 'intake',
-        'hasAuto', 'bumpers', 'climbInAuto', 'needChute', 'teleopClimb', 'weight', 'fuelHold',
-        'feedNeutralZone', 'playDefense', 'fitUnderTrench', 'notes', 'sourceFormUrl'
+        'Saved At', 'Scout Name', 'Team', 'Drivetrain Type', 'Other Drivetrain', 'Intake',
+        'Do they have auto?', 'Bumpers?', 'Climb in auto?', 'Need chute?', 'Teleop climb',
+        'Weight', 'How many fuel can they hold?', 'Feed from the neutral zone?',
+        'Can they play defense?', 'Fit under trench', 'Notes'
       ];
+
+      const escape = value => {
+        const text = String(value ?? '');
+        return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+      };
+
       const lines = [headers.join(',')];
-      for (const record of records) {
-        lines.push(headers.map((key) => escapeCsvValue(record[key])).join(','));
+      for (const item of records) {
+        lines.push([
+          item.createdAt,
+          item.scoutName,
+          item.team,
+          item.drivetrain,
+          item.drivetrainOther,
+          item.intake,
+          item.auto,
+          item.bumpers,
+          item.climbAuto,
+          item.needChute,
+          item.teleopClimb,
+          item.weight,
+          item.fuelHold,
+          item.neutralZone,
+          item.defense,
+          item.underTrench,
+          item.notes
+        ].map(escape).join(','));
       }
       return lines.join('\n');
     }
 
-    function downloadBlob(filename, blob) {
+    function downloadBlob(blob, filename) {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
       a.download = filename;
-      document.body.appendChild(a);
       a.click();
-      a.remove();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     }
 
-    function dateStamp() {
-      const now = new Date();
-      const pad = (n) => String(n).padStart(2, '0');
-      return `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}`;
+    async function exportCsv() {
+      const records = await getAllSubmissions();
+      if (!records.length) return alert('No saved submissions to export.');
+      downloadBlob(new Blob([toCsv(records)], { type: 'text/csv;charset=utf-8' }), 'exploding-bacon-pit-scouting.csv');
     }
 
-    async function exportCsv(records) {
-      const csv = recordsToCsv(records);
-      const fileName = `pit-scouting-submissions_${dateStamp()}.csv`;
-      downloadBlob(fileName, new Blob([csv], { type: 'text/csv;charset=utf-8' }));
-      document.getElementById('lastExportPill').textContent = `Last export: ${new Date().toLocaleString()}`;
-    }
-
-    async function exportJson(records) {
-      const fileName = `pit-scouting-submissions_${dateStamp()}.json`;
-      downloadBlob(fileName, new Blob([JSON.stringify(records, null, 2)], { type: 'application/json' }));
-      document.getElementById('lastExportPill').textContent = `Last export: ${new Date().toLocaleString()}`;
-    }
-
-    async function shareCsv(records) {
-      const csv = recordsToCsv(records);
-      const file = new File([csv], `pit-scouting-submissions_${dateStamp()}.csv`, { type: 'text/csv' });
+    async function shareCsv() {
+      const records = await getAllSubmissions();
+      if (!records.length) return alert('No saved submissions to share.');
+      const file = new File([toCsv(records)], 'exploding-bacon-pit-scouting.csv', { type: 'text/csv' });
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         await navigator.share({
-          title: 'Pit scouting submissions',
-          text: 'Offline pit scouting export for Google Sheets import.',
+          title: 'Exploding Bacon scouting export',
+          text: 'Offline scouting submissions export',
           files: [file]
         });
-        document.getElementById('lastExportPill').textContent = `Last share: ${new Date().toLocaleString()}`;
       } else {
-        await exportCsv(records);
-        alert('File sharing is not available in this browser, so the CSV was downloaded instead.');
+        await exportCsv();
       }
     }
 
-    function renderTable(records) {
-      const wrap = document.getElementById('savedTableWrap');
-      document.getElementById('pendingPill').textContent = `${records.length} saved submission${records.length === 1 ? '' : 's'}`;
-      if (!records.length) {
-        wrap.innerHTML = '<p class="empty">No saved submissions yet.</p>';
-        return;
-      }
-      const rows = records.map((r) => `
-        <tr>
-          <td>${new Date(r.createdAt).toLocaleString()}</td>
-          <td>${escapeHtml(r.scoutName)}</td>
-          <td>${escapeHtml(r.team)}</td>
-          <td>${escapeHtml(r.drivetrainType === 'Other' && r.drivetrainOther ? `Other: ${r.drivetrainOther}` : r.drivetrainType)}</td>
-          <td>${escapeHtml(r.intake)}</td>
-          <td>${escapeHtml(r.teleopClimb)}</td>
-          <td>${escapeHtml(r.notes || '')}</td>
-        </tr>
-      `).join('');
-      wrap.innerHTML = `
-        <div style="overflow-x:auto;">
-          <table>
-            <thead>
-              <tr>
-                <th>Saved</th>
-                <th>Scout</th>
-                <th>Team</th>
-                <th>Drivetrain</th>
-                <th>Intake</th>
-                <th>Teleop climb</th>
-                <th>Notes</th>
-              </tr>
-            </thead>
-            <tbody>${rows}</tbody>
-          </table>
-        </div>
-      `;
-    }
-
-    function escapeHtml(value) {
-      return String(value ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
-
-
-    function isiOS() {
-      return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    }
-
-    function isAndroid() {
-      return /Android/.test(navigator.userAgent);
-    }
-
-    function isStandalone() {
-      return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-    }
-
-    function updateInstallBanner() {
-      const banner = document.getElementById('installBanner');
-      if (!banner) return;
-      if (isStandalone()) {
-        banner.textContent = 'This app is already running from your Home Screen or as an installed app.';
-        return;
-      }
-      if (isiOS()) {
-        banner.innerHTML = 'On iPhone or iPad, open this page in <strong>Safari</strong>, tap <strong>Share</strong>, then choose <strong>Add to Home Screen</strong>.';
-        return;
-      }
-      if (isAndroid()) {
-        banner.innerHTML = 'On Android, open this page in <strong>Chrome</strong> or <strong>Edge</strong>, then use <strong>Install app</strong> or <strong>Add to Home screen</strong> from the browser prompt or menu.';
-        return;
-      }
-      banner.textContent = 'Open this page in your mobile browser and use its install or Add to Home Screen option for the best offline experience.';
-    }
-
-    async function refreshUi() {
-      updateConnectivity();
+    async function exportJson() {
       const records = await getAllSubmissions();
-      renderTable(records);
-      return records;
+      if (!records.length) return alert('No saved submissions to export.');
+      downloadBlob(new Blob([JSON.stringify(records, null, 2)], { type: 'application/json' }), 'exploding-bacon-pit-scouting.json');
     }
 
-    async function init() {
-      const form = document.getElementById('scoutingForm');
-      const resetFormBtn = document.getElementById('resetFormBtn');
-      const exportCsvBtn = document.getElementById('exportCsvBtn');
-      const exportJsonBtn = document.getElementById('exportJsonBtn');
-      const shareCsvBtn = document.getElementById('shareCsvBtn');
-      const emailHelpBtn = document.getElementById('emailHelpBtn');
-      const clearAllBtn = document.getElementById('clearAllBtn');
+    async function draftEmail() {
+      const count = (await getAllSubmissions()).length;
+      const subject = encodeURIComponent(`Exploding Bacon pit scouting export (${count} submissions)`);
+      const body = encodeURIComponent('Attach the exported CSV or JSON file from the scouting app before sending this email.');
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    }
 
-      window.addEventListener('online', refreshUi);
-      window.addEventListener('offline', refreshUi);
+    form.addEventListener('input', validateForm);
+    form.addEventListener('change', (event) => {
+      if (event.target.name === 'drivetrain') toggleOtherDrivetrain();
+      validateForm();
+    });
 
-      form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const payload = formToPayload(form);
-        if (payload.drivetrainType === 'Other' && !payload.drivetrainOther) {
-          alert('Please fill in the Other drivetrain description.');
-          return;
-        }
-        await saveSubmission(payload);
-        form.reset();
-        await refreshUi();
-        alert(navigator.onLine ? 'Submission saved locally. You can export it now or later.' : 'Offline: submission saved locally on this device.');
-      });
-
-      resetFormBtn.addEventListener('click', () => form.reset());
-
-      exportCsvBtn.addEventListener('click', async () => {
-        const records = await getAllSubmissions();
-        if (!records.length) return alert('There are no saved submissions to export.');
-        await exportCsv(records);
-      });
-
-      exportJsonBtn.addEventListener('click', async () => {
-        const records = await getAllSubmissions();
-        if (!records.length) return alert('There are no saved submissions to export.');
-        await exportJson(records);
-      });
-
-      shareCsvBtn.addEventListener('click', async () => {
-        const records = await getAllSubmissions();
-        if (!records.length) return alert('There are no saved submissions to share.');
-        try {
-          await shareCsv(records);
-        } catch (err) {
-          console.error(err);
-          alert('Unable to share the CSV directly in this browser.');
-        }
-      });
-
-      emailHelpBtn.addEventListener('click', async () => {
-        const records = await getAllSubmissions();
-        if (!records.length) return alert('There are no saved submissions to email.');
-        const subject = encodeURIComponent('Pit scouting submissions export');
-        const body = encodeURIComponent('I exported the offline pit scouting submissions from the app. Please attach the downloaded or shared CSV file to this email before sending.');
-        window.location.href = `mailto:?subject=${subject}&body=${body}`;
-      });
-
-      clearAllBtn.addEventListener('click', async () => {
-        const records = await getAllSubmissions();
-        if (!records.length) return;
-        if (!confirm(`Delete all ${records.length} saved submission${records.length === 1 ? '' : 's'} from this device?`)) return;
-        await clearAllSubmissions();
-        await refreshUi();
-      });
-
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./service-worker.js').catch((err) => console.error('Service worker registration failed', err));
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      hideMessage();
+      if (!validateForm()) {
+        showMessage('Please fill in every field before saving.', 'error');
+        return;
       }
 
-      updateInstallBanner();
-      await refreshUi();
+      const data = normalizeFormData();
+      const record = {
+        id: crypto.randomUUID(),
+        createdAt: new Date().toISOString(),
+        ...data
+      };
+
+      try {
+        await putSubmission(record);
+        form.reset();
+        otherDriveWrap.style.display = 'none';
+        saveBtn.disabled = true;
+        showMessage('Submission saved locally on this device.');
+        await renderSubmissions();
+      } catch (error) {
+        console.error(error);
+        showMessage('Could not save the submission locally.', 'error');
+      }
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      form.reset();
+      toggleOtherDrivetrain();
+      hideMessage();
+    });
+
+    document.getElementById('exportCsvBtn').addEventListener('click', exportCsv);
+    document.getElementById('shareCsvBtn').addEventListener('click', () => shareCsv().catch(err => {
+      console.error(err);
+      alert('Sharing failed. The CSV download will be used instead.');
+      exportCsv();
+    }));
+    document.getElementById('exportJsonBtn').addEventListener('click', exportJson);
+    document.getElementById('emailBtn').addEventListener('click', draftEmail);
+    document.getElementById('clearBtn').addEventListener('click', async () => {
+      const ok = confirm('Delete all saved scouting submissions on this device?');
+      if (!ok) return;
+      await clearSubmissions();
+      await renderSubmissions();
+    });
+
+    window.addEventListener('online', updateConnectivity);
+    window.addEventListener('offline', updateConnectivity);
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(console.error));
     }
 
-    init();
+    (async function init() {
+      updateConnectivity();
+      updateInstallPanel();
+      toggleOtherDrivetrain();
+      validateForm();
+      await renderSubmissions();
+    })();
   </script>
 </body>
 </html>

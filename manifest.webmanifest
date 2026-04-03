@@ -1,20 +1,29 @@
 {
-  "name": "Pit Scouting Offline App",
-  "short_name": "Pit Scout",
-  "start_url": "./index.html",
+  "name": "Exploding Bacon Pit Scouting",
+  "short_name": "Bacon Scout",
+  "description": "Offline-ready pit scouting app for Team 1902.",
+  "start_url": "./",
   "display": "standalone",
-  "background_color": "#f8fafc",
-  "theme_color": "#0f172a",
+  "background_color": "#fff6f1",
+  "theme_color": "#EE4C23",
   "icons": [
     {
-      "src": "./icon-192.png",
+      "src": "icons/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "./icon-512.png",
+      "src": "icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
