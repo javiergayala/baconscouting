@@ -16,6 +16,8 @@ const otherDriveWrap = document.getElementById('otherDriveWrap');
 const drivetrainOther = document.getElementById('drivetrainOther');
 const updateBanner = document.getElementById('updateBanner');
 const reloadAppBtn = document.getElementById('reloadAppBtn');
+const completionModal = document.getElementById('completionModal');
+const completionCloseBtn = document.getElementById('completionCloseBtn');
 
 let swRegistration = null;
 let refreshing = false;
@@ -148,6 +150,15 @@ function showMessage(text, type = 'ok') {
 }
 function hideMessage() { formMessage.style.display = 'none'; }
 
+function showCompletionModal() {
+  completionModal.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+function hideCompletionModal() {
+  completionModal.hidden = true;
+  document.body.style.overflow = '';
+}
+
 function updateConnectivity() {
   const online = navigator.onLine;
   netBadge.classList.toggle('online', online);
@@ -215,6 +226,7 @@ async function exportCsv() {
   const records = await getAllSubmissions();
   if (!records.length) return alert('No saved submissions to export.');
   downloadBlob(new Blob([toCsv(records)], { type: 'text/csv;charset=utf-8' }), 'exploding-bacon-pit-scouting.csv');
+  showCompletionModal();
 }
 
 async function shareCsv() {
@@ -223,6 +235,7 @@ async function shareCsv() {
   const file = new File([toCsv(records)], 'exploding-bacon-pit-scouting.csv', { type: 'text/csv' });
   if (navigator.canShare && navigator.canShare({ files: [file] })) {
     await navigator.share({ title: 'Exploding Bacon scouting export', text: 'Offline scouting submissions export', files: [file] });
+    showCompletionModal();
   } else {
     await exportCsv();
   }
@@ -232,6 +245,7 @@ async function exportJson() {
   const records = await getAllSubmissions();
   if (!records.length) return alert('No saved submissions to export.');
   downloadBlob(new Blob([JSON.stringify(records, null, 2)], { type: 'application/json' }), 'exploding-bacon-pit-scouting.json');
+  showCompletionModal();
 }
 
 async function draftEmail() {
@@ -312,6 +326,13 @@ document.getElementById('clearBtn').addEventListener('click', async () => {
   if (!confirm('Delete all saved scouting submissions on this device?')) return;
   await clearSubmissions();
   await renderSubmissions();
+});
+completionCloseBtn.addEventListener('click', hideCompletionModal);
+completionModal.addEventListener('click', (event) => {
+  if (event.target === completionModal) hideCompletionModal();
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && !completionModal.hidden) hideCompletionModal();
 });
 reloadAppBtn.addEventListener('click', () => {
   if (swRegistration?.waiting) {

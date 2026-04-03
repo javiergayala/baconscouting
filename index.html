@@ -184,6 +184,17 @@
       <p id="savedEmpty" class="saved-empty">No saved submissions yet.</p>
     </section>
   </main>
+
+    <div id="completionModal" class="modal-backdrop" hidden>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="completionTitle" aria-describedby="completionBody">
+        <h3 id="completionTitle">Share/export started</h3>
+        <p id="completionBody">Once you have confirmed that your data was sent successfully, be sure to click on the “Delete all saved data” button. If not you will be sending duplicate data with your next submission.</p>
+        <div class="modal-actions">
+          <button id="completionCloseBtn" class="primary" type="button">Got it</button>
+        </div>
+      </div>
+    </div>
+
   <script src="./app.js"></script>
 </body>
 </html>
